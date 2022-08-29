@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { DetailPage } from '../detail/detail.page';
+import { Conso } from './conso';
+import { ConsoService } from './conso.service';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +10,20 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+TheConso : Conso[] = []
 
-  constructor() {}
+  constructor(private consosrv:ConsoService) {}
+
+  getConso() {
+    this.consosrv.getConso().subscribe((tempo: Conso[]) => {
+      this.TheConso = tempo;
+      console.log(tempo);
+    });
+  }
+
+  del()
+  {
+
+  }
 
 }
