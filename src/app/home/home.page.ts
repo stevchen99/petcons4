@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { DetailPage } from '../detail/detail.page';
-import { Conso } from './conso';
-import { ConsoService } from './conso.service';
+import { Conso } from '../modele/conso';
+import { ConsoService } from '../services/conso.service';
 
 @Component({
   selector: 'app-home',
