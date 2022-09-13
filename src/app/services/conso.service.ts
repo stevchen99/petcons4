@@ -20,11 +20,12 @@ export class ConsoService {
     return this.httpClient.post<Conso>(`${this.ApiPHP}/Create_Food.php`, job);
   }
 
-  updateConso(client : Conso) : Observable<Conso>
-  {return this.httpClient.post<Conso>(`${this.ApiPHP}/Update_Food.php`, client)}
+  updateConso(client: Conso): Observable<Conso> {
+    return this.httpClient.post<Conso>(`${this.ApiPHP}/Update_Food.php`, client)
+  }
 
-  
- deleteConso(client : number) : Observable<Conso>
- {return this.httpClient.get<Conso>(`${this.ApiPHP}/Delete_Food?LeId=${client}`)}
+  deleteConso(client: number): Observable<Conso> {
+    return this.httpClient.get<Conso>(`${this.ApiPHP}/Delete_Food?LeId=${client}`)
+  }
 
 }

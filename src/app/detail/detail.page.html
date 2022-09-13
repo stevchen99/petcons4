@@ -8,8 +8,8 @@
   <ion-list>
     <ion-item>
       <ion-label>Who</ion-label>
-      <ion-select interface="popover" placeholder="Select Pet" [(ngModel)]="LeConso.Pet">
-        <ion-select-option *ngFor="let item of ThePet" [value]="item" >{{ item.pet_label }}</ion-select-option>
+      <ion-select interface="popover" placeholder="Select Pet"  [(ngModel)]="LeConso.Pet.pet_id" [compareWith]="compareWithFn" >
+        <ion-select-option *ngFor="let Pet of ThePet" [value]="Pet.pet_id" >{{ Pet.pet_label }}</ion-select-option>
       </ion-select>
     </ion-item>
 
@@ -30,26 +30,18 @@
 
     <ion-item>
       <ion-label>Pick date</ion-label>
-      <ion-input
-        value="{{ date | date: 'dd.MM.yyyy' }}"
-        id="date"
-        class="ion-text-end"
-      ></ion-input>
+      <ion-input value="{{ date | date: 'dd.MM.yyyy' }}" id="date" class="ion-text-end"></ion-input>
       <ion-popover trigger="date" size="cover">
         <ng-template>
-          <ion-datetime
-            presentation="date"
-            [(ngModel)]="date"
-            locale="sl-SI"
-          ></ion-datetime>
+          <ion-datetime presentation="date" [(ngModel)]="date" locale="sl-SI"></ion-datetime>
         </ng-template>
       </ion-popover>
     </ion-item>
-   
+
     <!-- LeConso.date_achat -->
 
   </ion-list>
-<ion-button (click)="goBack()">Back</ion-button>
+  <ion-button (click)="goBack()">Back</ion-button>
 
-<ion-button (click)="goSave()">Save</ion-button>
+  <ion-button (click)="goSave()">Save</ion-button>
 </ion-content>

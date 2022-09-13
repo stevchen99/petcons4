@@ -10,18 +10,17 @@ import { ConsoService } from '../services/conso.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit{
-TheConso : Conso[] = []
 
-  constructor(private consosrv:ConsoService,
-              private nav:NavController,
-              private router : Router) {}
+export class HomePage implements OnInit {
+  TheConso: Conso[] = []
 
-              ionViewDidEnter(){ this.getConso()}            
+  constructor(private consosrv: ConsoService,
+    private nav: NavController,
+    private router: Router) { }
 
-  ngOnInit() {
-   
-  }
+  ionViewDidEnter() { this.getConso() }
+
+  ngOnInit() {}
 
   getConso() {
     this.consosrv.getConso().subscribe((tempo: Conso[]) => {
@@ -30,18 +29,14 @@ TheConso : Conso[] = []
     });
   }
 
-  edtConso(cons : Conso){
-    console.log(cons.food_label)
-   // this.nav.navigateForward(['/detail', cons]);
-   //this.nav.navigateForward('/detail', { state :{ cons}});
-   this.router.navigate(['/detail'], {queryParams : cons})
+  edtConso(cons: Conso) {    
+    this.router.navigate(['/detail'], { queryParams: cons })
   }
 
-  del(idcons : number)
-  {
-this.consosrv.deleteConso(idcons).subscribe((temp : Conso) =>{
-this.getConso()
-})
+  del(idcons: number) {
+    this.consosrv.deleteConso(idcons).subscribe((temp: Conso) => {
+      this.getConso()
+    })
   }
 
 }

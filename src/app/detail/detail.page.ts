@@ -13,84 +13,88 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class DetailPage implements OnInit {
   private dateValue: any;
-  ThePet : Pet[] = []
+  ThePet: Pet[] = []
   Pet = {} as Pet
-  edtCons : Conso
-  LeConso : Conso = {Pet:this.Pet,food_id:0, food_label:'',food_mark:'', food_prix:0,date_achat:new Date}
-  foodID : number
+  SelPet = {} as Pet
+  edtCons: Conso
+  LeConso: Conso = { Pet: this.Pet, food_id: 0, food_label: '', food_mark: '', food_prix: 0, date_achat: new Date }
+  foodID: number
 
-  constructor(private nav:NavController,
-              private petsrv:PetService,
-              private conssrv : ConsoService,
-              private route: ActivatedRoute,
-              private router : Router) {
-// this.route.queryParams.subscribe(_p => {
-//   const test = this.router.getCurrentNavigation().extras.state
-//   console.log(test)
-//   if(test) this.edtCons = test.Conso
-//   console.log(this.edtCons.food_label)
-this.route.queryParams.subscribe(params => {
-  console.log(params)
-  this.LeConso.Pet = params.Pet
-  this.LeConso.food_label = params.food_label
-  this.LeConso.food_mark = params.food_mark
-  this.LeConso.food_prix = params.food_prix
-  this.foodID = params.food_id
-})
-}
+  test : any
+  
+  
 
-               
+  constructor(private nav: NavController,
+    private petsrv: PetService,
+    private conssrv: ConsoService,
+    private route: ActivatedRoute,
+    private router: Router) {
 
-        
+    this.route.queryParams.subscribe(params => {   
+      this.LeConso.Pet.pet_id = params.pet_id
+      this.LeConso.food_label = params.food_label
+      this.LeConso.food_mark = params.food_mark
+      this.LeConso.food_prix = params.food_prix
+      this.foodID = params.food_id
+     
+    })
+  }
 
   ngOnInit() {
     this.getPet()
+   console.log("LeConso.Pet.pet_id " +this.LeConso.Pet.pet_id)
+   
   }
+
+  compareWithFn (o1 : Pet, o2 : Pet) : boolean {
+    console.log("o1" + o1.pet_id + "o2" + o2.pet_id)
+    return o1 && o2 ? o1.pet_id === o2.pet_id : o1 === o2;
+  }
+
+ 
+
   get date(): any {
     return this.dateValue;
   }
+
   set date(value: any) {
     console.log({ value });
     this.dateValue = value;
   }
-  getPet()
-  {
-this.petsrv.getPet().subscribe(( temp : Pet[])=>{
-  this.ThePet = temp
-  console.log(temp)
-});
+
+
+
+  getPet() {
+    this.petsrv.getPet().subscribe((temp: Pet[]) => {
+      this.ThePet = temp
+    
+    });
   }
 
-  goBack()
-  {this.nav.pop()}
+  goBack() { this.nav.pop() }
 
-  goSave()
-  {
+  goSave() {
+    
 
-    console.log("foodID: " + this.foodID)
-    
-    if (this.foodID != undefined)
-    {
-      var leConso : Conso = {food_id:this.foodID,Pet : this.LeConso.Pet, food_label : this.LeConso.food_label, food_mark : this.LeConso.food_mark
-        ,food_prix: this.LeConso.food_prix, date_achat: this.date }
-    
-       
-        this.conssrv.updateConso(leConso).subscribe((res:Conso)=>
-        {console.log(res)}
-        );
+    if (this.foodID != undefined) {
+      var leConso: Conso = {
+        food_id: this.foodID, Pet: this.LeConso.Pet, food_label: this.LeConso.food_label, food_mark: this.LeConso.food_mark
+        , food_prix: this.LeConso.food_prix, date_achat: this.date
+      }
+      this.conssrv.updateConso(leConso).subscribe((res: Conso) => { console.log(res) }
+      );
     }
-    else
-    {
-      var leConso : Conso = { food_id:0, Pet : this.LeConso.Pet, food_label : this.LeConso.food_label, food_mark : this.LeConso.food_mark
-        ,food_prix: this.LeConso.food_prix, date_achat: this.date }
+    else {
+      var leConso: Conso = {
+        food_id: 0, Pet: this.LeConso.Pet, food_label: this.LeConso.food_label, food_mark: this.LeConso.food_mark
+        , food_prix: this.LeConso.food_prix, date_achat: this.date
+      }
     
-        console.log("Consss: " + leConso.date_achat)
-    
-        this.conssrv.createConso(leConso).subscribe((res:Conso)=>
-        {console.log(res)}
-        );
+
+      this.conssrv.createConso(leConso).subscribe((res: Conso) => { console.log(res) }
+      );
     }
     this.nav.pop()
-    
   }
+
 }

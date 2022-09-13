@@ -15,4 +15,5 @@ export class PetService {
   getPet(): Observable<Pet[]> {
     return this.httpClient.get<Pet[]>(`${this.ApiPHP}/Pet/Read_Pet.php`);
   }
+  
 }
