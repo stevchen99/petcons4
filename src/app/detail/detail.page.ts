@@ -14,44 +14,40 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class DetailPage implements OnInit {
   private dateValue: any;
   ThePet: Pet[] = []
-  Pet = {} as Pet
-  SelPet = {} as Pet
+  Pet = {} as Pet  
   edtCons: Conso
   LeConso: Conso = { Pet: this.Pet, food_id: 0, food_label: '', food_mark: '', food_prix: 0, date_achat: new Date }
-  foodID: number
-
-  test : any
-  
+  foodID: number  
+  btnLabel : string
+   
   
 
   constructor(private nav: NavController,
     private petsrv: PetService,
     private conssrv: ConsoService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router) { }
 
-    this.route.queryParams.subscribe(params => {   
-      this.LeConso.Pet.pet_id = params.pet_id
-      this.LeConso.food_label = params.food_label
-      this.LeConso.food_mark = params.food_mark
-      this.LeConso.food_prix = params.food_prix
-      this.foodID = params.food_id
-     
-    })
-  }
+ionViewDidEnter(){
+  this.route.queryParams.subscribe(params => {   
+    this.LeConso.Pet.pet_id = params.pet_id
+    this.LeConso.food_label = params.food_label
+    this.LeConso.food_mark = params.food_mark
+    this.LeConso.food_prix = params.food_prix
+    this.date = params.date_achat
+    this.foodID = params.food_id   
+  })  
+
+  console.log(this.LeConso.date_achat)
+
+  if (this.foodID == undefined){this.btnLabel= "Save"}
+  else {this.btnLabel= "Update"}
+
+}
 
   ngOnInit() {
-    this.getPet()
-   console.log("LeConso.Pet.pet_id " +this.LeConso.Pet.pet_id)
-   
+        this.getPet() 
   }
-
-  compareWithFn (o1 : Pet, o2 : Pet) : boolean {
-    console.log("o1" + o1.pet_id + "o2" + o2.pet_id)
-    return o1 && o2 ? o1.pet_id === o2.pet_id : o1 === o2;
-  }
-
- 
 
   get date(): any {
     return this.dateValue;
@@ -62,8 +58,6 @@ export class DetailPage implements OnInit {
     this.dateValue = value;
   }
 
-
-
   getPet() {
     this.petsrv.getPet().subscribe((temp: Pet[]) => {
       this.ThePet = temp
@@ -71,10 +65,11 @@ export class DetailPage implements OnInit {
     });
   }
 
-  goBack() { this.nav.pop() }
+  goBack() {
+     this.nav.pop()
+     }
 
-  goSave() {
-    
+  goSave() {    
 
     if (this.foodID != undefined) {
       var leConso: Conso = {
