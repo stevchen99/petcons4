@@ -13,21 +13,48 @@ import { ConsoService } from '../services/conso.service';
 
 export class HomePage implements OnInit {
   TheConso: Conso[] = []
+  months: any = [];
 
   constructor(private consosrv: ConsoService,
     private nav: NavController,
     private router: Router) { }
 
-  ionViewDidEnter() { this.getConso() }
+  ionViewDidEnter() { 
+   // this.getConso();
+   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getConso(); 
+  }
 
   getConso() {
     this.consosrv.getConso().subscribe((tempo: Conso[]) => {
-      this.TheConso = tempo;
-      console.log(tempo);
+      this.TheConso = tempo;    
+      console.log(this.TheConso)
+      this.TheConso.forEach( (event) => { 
+        let monthNumber = this.getMonthNumber(event);  
+                 this.months[monthNumber].push(event);   
+                });                
     });
+
+    console.log("monjt: " +this.months)
+
   }
+
+ 
+
+  private getMonthNumber(event: any): number {
+    return event.date_achat.split('-')[1];
+}
+
+public getMonthName(monthNumber: any) {
+  let maanden = [ {"id": 1, "title": "Januari"}, {"id": 2, "title": "Februari"}, {"id": 3, "title": "Maart"}, {"id": 4, "title": "April"}, 
+                  {"id": 5, "title": "Mei"}, {"id": 6, "title": "Juni"}, {"id": 7, "title": "Juli"} , {"id": 8, "title": "Aout"}, {"id": 9, "title": "Sept"}
+                  , {"id": 10, "title": "Oct"}, {"id": 11, "title": "Nov"}, {"id": 12, "title": "Dec"}];
+  maanden.forEach((maand) => {
+      if ( maand.id === monthNumber) return maand.title;
+  });
+}
 
   edtConso(cons: Conso) {    
     this.router.navigate(['/detail'], { queryParams: cons })
