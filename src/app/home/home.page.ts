@@ -31,10 +31,23 @@ export class HomePage implements OnInit {
     this.consosrv.getConso().subscribe((tempo: Conso[]) => {
       this.TheConso = tempo;    
       console.log(this.TheConso)
-      this.TheConso.forEach( (event) => { 
-        let monthNumber = this.getMonthNumber(event);  
-                 this.months[monthNumber].push(event);   
-                });                
+     // this gives an object with dates as keys 
+ const groups = this.TheConso.reduce((groups, game) => {   
+   const month = game.date_achat.split('-')[1];
+  if (!groups[month]) {
+    groups[month] = [];
+  }
+  groups[month].push(game);
+  return groups;
+}, {});
+
+// Edit: to add it in the array format instead
+ const groupArrays = Object.keys(groups).map((date) => {
+  return {
+    date,
+    games: groups[date]
+  };
+});            
     });
 
     console.log("monjt: " +this.months)
