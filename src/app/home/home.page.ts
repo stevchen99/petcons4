@@ -13,7 +13,7 @@ import { ConsoService } from '../services/conso.service';
 })
 export class HomePage implements OnInit {
   TheConso: Conso[] = [];
-  months: any = [];
+  groupArrays: any = [];
 
   constructor(
     private consosrv: ConsoService,
@@ -45,7 +45,7 @@ export class HomePage implements OnInit {
       }, {});
 
       // Edit: to add it in the array format instead
-      const groupArrays = Object.keys(groups).map((mois) => {
+      this.groupArrays = Object.keys(groups).map((mois) => {
         return {
           mois,
           games: groups[mois],
