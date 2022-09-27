@@ -32,15 +32,15 @@ export class HomePage implements OnInit {
   getConso() {
     this.consosrv.getConso().subscribe((tempo: Conso[]) => {
       this.TheConso = tempo;
-      console.log(this.TheConso);
+
       // this gives an object with dates as keys
-      const groups = this.TheConso.reduce((groups, game) => {
-        const month = new Date(game.date_achat).getMonth() + 1;
+      const groups = this.TheConso.reduce((groups, donne) => {
+        const month = new Date(donne.date_achat).getMonth() + 1;
 
         if (!groups[month]) {
           groups[month] = [];
         }
-        groups[month].push(game);
+        groups[month].push(donne);
         return groups;
       }, {});
 
@@ -48,16 +48,10 @@ export class HomePage implements OnInit {
       this.groupArrays = Object.keys(groups).map((mois) => {
         return {
           mois,
-          games: groups[mois],
+          donnes: groups[mois],
         };
       });
     });
-
-    console.log('monjt: ' + this.groupArrays);
-  }
-
-  private getMonthNumber(event: any): number {
-    return event.date_achat.split('-')[1];
   }
 
   public getMonthName(monthNumber: any) {
