@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { DetailPage } from '../detail/detail.page';
@@ -17,7 +18,8 @@ export class HomePage implements OnInit {
 
   constructor(private consosrv: ConsoService,
     private nav: NavController,
-    private router: Router) { }
+    private router: Router
+   ) { }
 
   ionViewDidEnter() { 
    // this.getConso();
@@ -32,8 +34,11 @@ export class HomePage implements OnInit {
       this.TheConso = tempo;    
       console.log(this.TheConso)
      // this gives an object with dates as keys 
- const groups = this.TheConso.reduce((groups, game) => {   
-   const month = game.date_achat.split('-')[1];
+ const groups = this.TheConso.reduce((groups, game) => {  
+ 
+   const month = new Date(game.date_achat).getMonth()+1;
+
+   
   if (!groups[month]) {
     groups[month] = [];
   }
@@ -50,7 +55,7 @@ export class HomePage implements OnInit {
 });            
     });
 
-    console.log("monjt: " +this.months)
+   // console.log("monjt: " +this.groups)
 
   }
 

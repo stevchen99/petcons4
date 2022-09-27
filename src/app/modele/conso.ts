@@ -6,5 +6,5 @@ export interface Conso {
   food_label: string;
   food_mark: string;
   food_prix: number;
-  date_achat: string;
+  date_achat: Date;
 }
