@@ -22,11 +22,11 @@ export class HomePage implements OnInit {
   ) {}
 
   ionViewDidEnter() {
-    // this.getConso();
+    this.getConso();
   }
 
   ngOnInit() {
-    this.getConso();
+    //this.getConso();
   }
 
   getConso() {

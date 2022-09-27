@@ -82,7 +82,7 @@ ionViewDidEnter(){
     else {
       var leConso: Conso = {
         food_id: 0, Pet: this.LeConso.Pet, food_label: this.LeConso.food_label, food_mark: this.LeConso.food_mark
-        , food_prix: this.LeConso.food_prix, date_achat: this.date
+        , food_prix: this.LeConso.food_prix, date_achat: this.date ? null : new Date
       }
     
 
