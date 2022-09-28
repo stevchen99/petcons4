@@ -53,13 +53,15 @@ export class HomePage implements OnInit {
           groups[MM] = [];
         }
         groups[MM].push(donne);
+        const temp = (groups[MM].food_id += donne.food_id);
         return groups;
       }, {});
 
       //Mapping data to array
-      this.groupArrays = Object.keys(groups).map((mois) => {
+      this.groupArrays = Object.keys(groups).map((mois, temp) => {
         return {
           mois,
+          temp,
           donnes: groups[mois],
         };
       });

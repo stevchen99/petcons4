@@ -1,4 +1,3 @@
-
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title> The Cons </ion-title>
@@ -13,18 +12,24 @@
   <ion-button [routerLink]="['/detail']">Add Food</ion-button>
 
   <ion-item-group *ngFor="let item of groupArrays">
-    <ion-item-divider sticky>{{item.mois}}</ion-item-divider>
+    <ion-item-divider sticky>{{item.mois}}{{item.temp}}</ion-item-divider>
     <ion-item *ngFor="let event of item.donnes">
-    
       <ion-item-sliding>
         <ion-item button (click)="edtConso(event)">
           <ion-label><h1>{{event.food_label}}</h1></ion-label>
-          <ion-label position="fixed"><p>{{event.food_mark}} <br /> {{event.date_achat | date: 'dd/MM'}}</p></ion-label>
-          
-          <ion-label class="alignRight">{{event.food_prix}}</ion-label> 
+          <ion-label position="fixed"
+            ><p>
+              {{event.food_mark}} <br />
+              {{event.date_achat | date: 'dd/MM'}}
+            </p></ion-label
+          >
+
+          <ion-label class="alignRight">{{event.food_prix}}</ion-label>
         </ion-item>
         <ion-item-options side="end">
-          <ion-item-option color="danger" (click)="del(event.food_id)">Del</ion-item-option>
+          <ion-item-option color="danger" (click)="del(event.food_id)"
+            >Del</ion-item-option
+          >
         </ion-item-options>
       </ion-item-sliding>
     </ion-item>
