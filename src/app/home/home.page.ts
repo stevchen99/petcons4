@@ -14,7 +14,6 @@ import { ConsoService } from '../services/conso.service';
 export class HomePage implements OnInit {
   TheConso: Conso[] = [];
   groupArrays: any = [];
-  
 
   constructor(
     private consosrv: ConsoService,
@@ -30,6 +29,7 @@ export class HomePage implements OnInit {
     //this.getConso();
   }
 
+  //Swipe Down to get the data
   doRefresh(event) {
     console.log('Begin async operation');
     this.getConso();
@@ -39,15 +39,16 @@ export class HomePage implements OnInit {
     }, 2000);
   }
 
+  // Get the data from service
   getConso() {
     this.consosrv.getConso().subscribe((tempo: Conso[]) => {
       this.TheConso = tempo;
 
-      // this gives an object with dates as keys
+      //Group data in month
       const groups = this.TheConso.reduce((groups, donne) => {
         const month = new Date(donne.date_achat).getMonth() + 1;
-          const MM = this.getMonthName(month)
-       
+        const MM = this.getMonthName(month);
+
         if (!groups[MM]) {
           groups[MM] = [];
         }
@@ -55,7 +56,7 @@ export class HomePage implements OnInit {
         return groups;
       }, {});
 
-      // Edit: to add it in the array format instead
+      //Mapping data to array
       this.groupArrays = Object.keys(groups).map((mois) => {
         return {
           mois,
@@ -65,9 +66,10 @@ export class HomePage implements OnInit {
     });
   }
 
-   getMonthName(monthNumber: any) : string {
-   var tempMonth : string
-    let maanden = [
+  // Get month label
+  getMonthName(monthNumber: any): string {
+    var tempMonth: string;
+    let monat = [
       { id: 1, title: 'Januari' },
       { id: 2, title: 'Februari' },
       { id: 3, title: 'Maart' },
@@ -81,19 +83,20 @@ export class HomePage implements OnInit {
       { id: 11, title: 'Nov' },
       { id: 12, title: 'Dec' },
     ];
-    maanden.forEach((maand) => {     
-      if (maand.id === monthNumber) 
-      {       
-        tempMonth = maand.title;
-      }     
+    monat.forEach((yue) => {
+      if (yue.id === monthNumber) {
+        tempMonth = yue.title;
+      }
     });
     return tempMonth;
   }
 
+  //Modification item
   edtConso(cons: Conso) {
     this.router.navigate(['/detail'], { queryParams: cons });
   }
 
+  //Delete item
   del(idcons: number) {
     this.consosrv.deleteConso(idcons).subscribe((temp: Conso) => {
       this.getConso();
