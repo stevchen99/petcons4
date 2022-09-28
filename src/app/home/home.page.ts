@@ -53,7 +53,8 @@ export class HomePage implements OnInit {
           groups[MM] = [];
         }
         groups[MM].push(donne);
-        const temp = (groups[MM].food_id += donne.food_id);
+        //const temp = (groups[MM].food_prix += donne.food_prix);
+       // const temp += donne.food_prix;
         return groups;
       }, {});
 
