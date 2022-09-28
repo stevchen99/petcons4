@@ -14,6 +14,7 @@ import { ConsoService } from '../services/conso.service';
 export class HomePage implements OnInit {
   TheConso: Conso[] = [];
   groupArrays: any = [];
+  
 
   constructor(
     private consosrv: ConsoService,
@@ -29,6 +30,15 @@ export class HomePage implements OnInit {
     //this.getConso();
   }
 
+  doRefresh(event) {
+    console.log('Begin async operation');
+    this.getConso();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+
   getConso() {
     this.consosrv.getConso().subscribe((tempo: Conso[]) => {
       this.TheConso = tempo;
@@ -36,11 +46,12 @@ export class HomePage implements OnInit {
       // this gives an object with dates as keys
       const groups = this.TheConso.reduce((groups, donne) => {
         const month = new Date(donne.date_achat).getMonth() + 1;
-
-        if (!groups[month]) {
-          groups[month] = [];
+          const MM = this.getMonthName(month)
+       
+        if (!groups[MM]) {
+          groups[MM] = [];
         }
-        groups[month].push(donne);
+        groups[MM].push(donne);
         return groups;
       }, {});
 
@@ -54,7 +65,8 @@ export class HomePage implements OnInit {
     });
   }
 
-  public getMonthName(monthNumber: any) {
+   getMonthName(monthNumber: any) : string {
+   var tempMonth : string
     let maanden = [
       { id: 1, title: 'Januari' },
       { id: 2, title: 'Februari' },
@@ -69,9 +81,13 @@ export class HomePage implements OnInit {
       { id: 11, title: 'Nov' },
       { id: 12, title: 'Dec' },
     ];
-    maanden.forEach((maand) => {
-      if (maand.id === monthNumber) return maand.title;
+    maanden.forEach((maand) => {     
+      if (maand.id === monthNumber) 
+      {       
+        tempMonth = maand.title;
+      }     
     });
+    return tempMonth;
   }
 
   edtConso(cons: Conso) {

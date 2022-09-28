@@ -1,3 +1,4 @@
+
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title> The Cons </ion-title>
@@ -5,6 +6,10 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-button [routerLink]="['/detail']">Add Food</ion-button>
 
   <ion-item-group *ngFor="let item of groupArrays">
@@ -19,7 +24,7 @@
           <ion-label class="alignRight">{{event.food_prix}}</ion-label> 
         </ion-item>
         <ion-item-options side="end">
-          <ion-item-option (click)="del(event.food_id)">Del</ion-item-option>
+          <ion-item-option color="danger" (click)="del(event.food_id)">Del</ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
     </ion-item>
