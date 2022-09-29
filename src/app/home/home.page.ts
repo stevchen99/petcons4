@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+
 import { DetailPage } from '../detail/detail.page';
 import { Conso } from '../modele/conso';
 import { ConsoService } from '../services/conso.service';
@@ -14,12 +15,13 @@ import { ConsoService } from '../services/conso.service';
 export class HomePage implements OnInit {
   TheConso: Conso[] = [];
   groupArrays: any = [];
+  tempsum: string
 
   constructor(
     private consosrv: ConsoService,
     private nav: NavController,
     private router: Router
-  ) {}
+  ) { }
 
   ionViewDidEnter() {
     this.getConso();
@@ -41,6 +43,7 @@ export class HomePage implements OnInit {
 
   // Get the data from service
   getConso() {
+
     this.consosrv.getConso().subscribe((tempo: Conso[]) => {
       this.TheConso = tempo;
 
@@ -48,22 +51,20 @@ export class HomePage implements OnInit {
       const groups = this.TheConso.reduce((groups, donne) => {
         const month = new Date(donne.date_achat).getMonth() + 1;
         const MM = this.getMonthName(month);
-
-        if (!groups[MM]) {
-          groups[MM] = [];
+        
+        if (!groups[month]) {
+          groups[month] = [];
         }
-        groups[MM].push(donne);
-        //const temp = (groups[MM].food_prix += donne.food_prix);
-       // const temp += donne.food_prix;
+        groups[month].push(donne);
         return groups;
       }, {});
 
       //Mapping data to array
-      this.groupArrays = Object.keys(groups).map((mois, temp) => {
+      this.groupArrays = Object.keys(groups).map((mois) => {
         return {
           mois,
-          temp,
-          donnes: groups[mois],
+          sum: groups[mois].reduce((a, b) => a + parseInt(b.food_prix), 0),
+          donnes: groups[mois].sort((objA, objB) => new Date(objA.date_achat).getTime() - new Date(objB.date_achat).getTime()),
         };
       });
     });

@@ -12,7 +12,7 @@
   <ion-button [routerLink]="['/detail']">Add Food</ion-button>
 
   <ion-item-group *ngFor="let item of groupArrays">
-    <ion-item-divider sticky>{{item.mois}} -- TOTAL : {{item.temp}}</ion-item-divider>
+    <ion-item-divider sticky color="secondary">{{item.month}}{{item.mois}} -- TOTAL : {{item.sum}}</ion-item-divider>
     <ion-item *ngFor="let event of item.donnes">
       <ion-item-sliding>
         <ion-item button (click)="edtConso(event)">
