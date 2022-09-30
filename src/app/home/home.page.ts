@@ -51,7 +51,7 @@ export class HomePage implements OnInit {
       const groups = this.TheConso.reduce((groups, donne) => {
         const month = new Date(donne.date_achat).getMonth() + 1;
         const MM = this.getMonthName(month);
-        
+    
         if (!groups[month]) {
           groups[month] = [];
         }
@@ -66,7 +66,7 @@ export class HomePage implements OnInit {
           sum: groups[mois].reduce((a, b) => a + parseInt(b.food_prix), 0),
           donnes: groups[mois].sort((objA, objB) => new Date(objA.date_achat).getTime() - new Date(objB.date_achat).getTime()),
         };
-      });
+     }) //.sort((a,b) => a.mois.localeCompare(b.mois));    
     });
   }
 
@@ -74,18 +74,18 @@ export class HomePage implements OnInit {
   getMonthName(monthNumber: any): string {
     var tempMonth: string;
     let monat = [
-      { id: 1, title: 'Januari' },
-      { id: 2, title: 'Februari' },
-      { id: 3, title: 'Maart' },
-      { id: 4, title: 'April' },
-      { id: 5, title: 'Mei' },
-      { id: 6, title: 'Juni' },
-      { id: 7, title: 'Juli' },
-      { id: 8, title: 'Aout' },
-      { id: 9, title: 'Sept' },
-      { id: 10, title: 'Oct' },
-      { id: 11, title: 'Nov' },
-      { id: 12, title: 'Dec' },
+      { id: 1, title: 'Janvier' },
+      { id: 2, title: 'Fevrier' },
+      { id: 3, title: 'Mars' },
+      { id: 4, title: 'Avril' },
+      { id: 5, title: 'Mai' },
+      { id: 6, title: 'Juin' },
+      { id: 7, title: 'Juillet' },
+      { id: 8, title: 'Août' },
+      { id: 9, title: 'Septembre' },
+      { id: 10, title: 'Octobre' },
+      { id: 11, title: 'Novembre' },
+      { id: 12, title: 'DDecembreec' },
     ];
     monat.forEach((yue) => {
       if (yue.id === monthNumber) {
