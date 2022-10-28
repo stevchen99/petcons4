@@ -63,7 +63,7 @@ export class HomePage implements OnInit {
       this.groupArrays = Object.keys(groups).map((mois) => {
         return {
           mois,
-          sum: groups[mois].reduce((a, b) => a + parseInt(b.food_prix), 0),
+          sum: groups[mois].reduce((a, b) => a + parseFloat(b.food_prix), 0),
           donnes: groups[mois].sort((objA, objB) => new Date(objA.date_achat).getTime() - new Date(objB.date_achat).getTime()),
         };
      }) //.sort((a,b) => a.mois.localeCompare(b.mois));    
