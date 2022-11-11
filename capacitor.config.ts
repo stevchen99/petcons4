@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'stev.petcons.app',
   appName: 'petcons4',
   webDir: 'www',
   bundledWebRuntime: false

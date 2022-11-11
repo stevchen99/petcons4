@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
 
-import { DetailPage } from '../detail/detail.page';
+import { NavController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
+
 import { Conso } from '../modele/conso';
 import { ConsoService } from '../services/conso.service';
 
@@ -19,7 +19,7 @@ export class HomePage implements OnInit {
 
   constructor(
     private consosrv: ConsoService,
-    private nav: NavController,
+    private loadingController: LoadingController,
     private router: Router
   ) { }
 
@@ -42,7 +42,11 @@ export class HomePage implements OnInit {
   }
 
   // Get the data from service
-  getConso() {
+  async getConso() {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...'
+    });
+    loading.present();
 
     this.consosrv.getConso().subscribe((tempo: Conso[]) => {
       this.TheConso = tempo;
@@ -51,7 +55,7 @@ export class HomePage implements OnInit {
       const groups = this.TheConso.reduce((groups, donne) => {
         const month = new Date(donne.date_achat).getMonth() + 1;
         const MM = this.getMonthName(month);
-    
+
         if (!groups[month]) {
           groups[month] = [];
         }
@@ -66,7 +70,10 @@ export class HomePage implements OnInit {
           sum: groups[mois].reduce((a, b) => a + parseFloat(b.food_prix), 0),
           donnes: groups[mois].sort((objA, objB) => new Date(objA.date_achat).getTime() - new Date(objB.date_achat).getTime()),
         };
-     }) //.sort((a,b) => a.mois.localeCompare(b.mois));    
+      }) //.sort((a,b) => a.mois.localeCompare(b.mois));  
+
+      loading.dismiss();
+
     });
   }
 
