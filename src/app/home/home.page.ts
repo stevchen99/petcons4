@@ -40,11 +40,12 @@ export class HomePage implements OnInit {
       console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
+    console.log("refresh",this.radioValue)
   }
 
   selectedCategory() {
   console.log("qfd",this.radioValue)
-   
+  this.getConso();
   }
 
   // Get the data from service
@@ -57,17 +58,20 @@ export class HomePage implements OnInit {
     this.consosrv.getConso().subscribe((tempo: Conso[]) => {
       this.TheConso = tempo;
 
-      console.log(tempo)
-
+      if (this.radioValue == undefined)
+      this.radioValue = "Month"
+     
+      console.log("getcos",this.radioValue)
       //Group data in month
       const groups = this.TheConso.reduce((groups, donne) => {
-        const month = new Date(donne.date_achat).getMonth() + 1;
-        const MM = this.getMonthName(month);
+      var filter; 
+       //filter = new Date(donne.date_achat).getMonth() + 1;
+       filter = donne.pet_id;
 
-        if (!groups[month]) {
-          groups[month] = [];
+        if (!groups[filter]) {
+          groups[filter] = [];
         }
-        groups[month].push(donne);
+        groups[filter].push(donne);
         return groups;
       }, {});
 
@@ -85,30 +89,7 @@ export class HomePage implements OnInit {
     });
   }
 
-  // Get month label
-  getMonthName(monthNumber: any): string {
-    var tempMonth: string;
-    let monat = [
-      { id: 1, title: 'Janvier' },
-      { id: 2, title: 'Fevrier' },
-      { id: 3, title: 'Mars' },
-      { id: 4, title: 'Avril' },
-      { id: 5, title: 'Mai' },
-      { id: 6, title: 'Juin' },
-      { id: 7, title: 'Juillet' },
-      { id: 8, title: 'Août' },
-      { id: 9, title: 'Septembre' },
-      { id: 10, title: 'Octobre' },
-      { id: 11, title: 'Novembre' },
-      { id: 12, title: 'DDecembreec' },
-    ];
-    monat.forEach((yue) => {
-      if (yue.id === monthNumber) {
-        tempMonth = yue.title;
-      }
-    });
-    return tempMonth;
-  }
+ 
 
   //Modification item
   edtConso(cons: Conso) {

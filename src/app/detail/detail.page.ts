@@ -16,7 +16,7 @@ export class DetailPage implements OnInit {
   ThePet: Pet[] = []
   Pet = {} as Pet  
   edtCons: Conso
-  LeConso: Conso = { Pet: this.Pet, food_id: 0, food_label: '', food_mark: '', food_prix: 0, date_achat: new Date }
+  LeConso: Conso = { Pet: this.Pet, pet_id: 0 ,food_id: 0, food_label: '', food_mark: '', food_prix: 0, date_achat: new Date }
   foodID: number  
   btnLabel : string
    
@@ -73,7 +73,7 @@ ionViewDidEnter(){
 
     if (this.foodID != undefined) {
       var leConso: Conso = {
-        food_id: this.foodID, Pet: this.LeConso.Pet, food_label: this.LeConso.food_label, food_mark: this.LeConso.food_mark
+        food_id: this.foodID, pet_id: this.LeConso.Pet.pet_id, Pet: this.LeConso.Pet, food_label: this.LeConso.food_label, food_mark: this.LeConso.food_mark
         , food_prix: this.LeConso.food_prix, date_achat: this.date
       }
       this.conssrv.updateConso(leConso).subscribe((res: Conso) => { console.log(res) }
@@ -81,7 +81,7 @@ ionViewDidEnter(){
     }
     else {
       var leConso: Conso = {
-        food_id: 0, Pet: this.LeConso.Pet, food_label: this.LeConso.food_label, food_mark: this.LeConso.food_mark
+        food_id: 0,pet_id: this.LeConso.Pet.pet_id, Pet: this.LeConso.Pet, food_label: this.LeConso.food_label, food_mark: this.LeConso.food_mark
         , food_prix: this.LeConso.food_prix, date_achat: this.date == null ? new Date : this.date
       }
     

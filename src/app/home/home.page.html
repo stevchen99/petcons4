@@ -7,7 +7,7 @@
 <ion-content [fullscreen]="true">
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
-  </ion-refresher> 
+  </ion-refresher>
 
   <ion-row>
     <ion-col>
@@ -16,20 +16,44 @@
       </ion-item>
     </ion-col>
     <ion-col>
-      <ion-radio-group [(ngModel)]="radioValue">
-      <ion-row>
-        <ion-col><ion-item> <ion-label>Month</ion-label>
-          <ion-radio value="Month" (ionSelect)="selectedCategory()"></ion-radio></ion-item></ion-col>
-        <ion-col><ion-item>  <ion-label>Pet</ion-label>
-          <ion-radio value="Pet" (ionSelect)="selectedCategory()"></ion-radio></ion-item></ion-col>
-      </ion-row>
-    </ion-radio-group>
+      <ion-radio-group value="Month" (ionChange)="selectedCategory()" [(ngModel)]="radioValue">
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>Month</ion-label>
+              <ion-radio value="Month"></ion-radio>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label>Pet</ion-label>
+              <ion-radio value="Pet"></ion-radio>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-radio-group>
     </ion-col>
-  </ion-row>   
+  </ion-row>
+
 
   <ion-item-group *ngFor="let item of groupArrays">
-    <ion-item-divider sticky color="medium">{{('2020-' + item.mois + '-01') | date: 'MMMM'}} --------------- TOTAL :
-      {{item.sum | number : '1.2-2'}}</ion-item-divider>
+    <ion-item-divider sticky color="medium">
+      <div *ngIf="radioValue == 'Month'">
+        {{('2020-' + item.mois + '-01') | date: 'MMMM'}} --------------- TOTAL :
+        {{item.sum | number : '1.2-2'}}
+      </div>
+
+      <div *ngIf="radioValue == 'Pet'">
+        <div *ngIf="item.mois == 1">Hirukami Murakami</div>
+        <div *ngIf="item.mois == 2">Josephine</div>
+        <div *ngIf="item.mois == 3">blakuy</div>
+        --------------- TOTAL :
+        {{item.sum | number : '1.2-2'}}
+      </div>
+
+
+     
+    </ion-item-divider>
     <ion-item *ngFor="let event of item.donnes">
       <ion-item-sliding>
         <ion-item button (click)="edtConso(event)">
