@@ -16,6 +16,7 @@ export class HomePage implements OnInit {
   TheConso: Conso[] = [];
   groupArrays: any = [];
   tempsum: string
+  radioValue;
 
   constructor(
     private consosrv: ConsoService,
@@ -41,6 +42,11 @@ export class HomePage implements OnInit {
     }, 2000);
   }
 
+  selectedCategory() {
+  console.log("qfd",this.radioValue)
+   
+  }
+
   // Get the data from service
   async getConso() {
     const loading = await this.loadingController.create({
@@ -50,6 +56,8 @@ export class HomePage implements OnInit {
 
     this.consosrv.getConso().subscribe((tempo: Conso[]) => {
       this.TheConso = tempo;
+
+      console.log(tempo)
 
       //Group data in month
       const groups = this.TheConso.reduce((groups, donne) => {
