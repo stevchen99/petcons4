@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { NavController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
 
 import { Conso } from '../modele/conso';
@@ -11,6 +10,7 @@ import { ConsoService } from '../services/conso.service';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+  
 })
 export class HomePage implements OnInit {
   TheConso: Conso[] = [];

@@ -61,7 +61,7 @@ ionViewDidEnter(){
   getPet() {
     this.petsrv.getPet().subscribe((temp: Pet[]) => {
       this.ThePet = temp
-    
+    console.log(this.ThePet)
     });
   }
 

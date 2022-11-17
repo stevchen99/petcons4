@@ -38,20 +38,19 @@
 
   <ion-item-group *ngFor="let item of groupArrays">
     <ion-item-divider sticky color="medium">
+
       <div *ngIf="radioValue == 'Month'">
         {{('2020-' + item.mois + '-01') | date: 'MMMM'}} --------------- TOTAL :
         {{item.sum | number : '1.2-2'}}
       </div>
 
       <div *ngIf="radioValue == 'Pet'">
-        <div *ngIf="item.mois == 1">Hirukami Murakami</div>
+      <!--   <div *ngIf="item.mois == 1">Hirukami Murakmi</div>
         <div *ngIf="item.mois == 2">Josephine</div>
-        <div *ngIf="item.mois == 3">blakuy</div>
-        --------------- TOTAL :
+        <div *ngIf="item.mois == 3">Mikey n Blaky</div> -->
+        {{ item.mois  | petlibelle }}--------------- TOTAL :
         {{item.sum | number : '1.2-2'}}
       </div>
-
-
      
     </ion-item-divider>
     <ion-item *ngFor="let event of item.donnes">
