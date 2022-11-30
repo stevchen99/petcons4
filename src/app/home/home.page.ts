@@ -65,8 +65,10 @@ export class HomePage implements OnInit {
       //Group data in month
       const groups = this.TheConso.reduce((groups, donne) => {
       var filter; 
-       //filter = new Date(donne.date_achat).getMonth() + 1;
-       filter = donne.pet_id;
+
+      if (this.radioValue == "Month"){ filter = new Date(donne.date_achat).getMonth() + 1;}
+      else { filter = donne.pet_id; }      
+      
 
         if (!groups[filter]) {
           groups[filter] = [];
