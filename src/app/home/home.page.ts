@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LoadingController } from '@ionic/angular';
+import { Subject } from 'rxjs';
 
 import { Conso } from '../modele/conso';
 import { ConsoService } from '../services/conso.service';
@@ -12,7 +13,10 @@ import { ConsoService } from '../services/conso.service';
   styleUrls: ['home.page.scss'],
   
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
+
+  private ngUnsubscribe = new Subject<void>();
+
   TheConso: Conso[] = [];
   groupArrays: any = [];
   tempsum: string
@@ -44,8 +48,7 @@ export class HomePage implements OnInit {
   }
 
   selectedCategory() {
-  console.log("qfd",this.radioValue)
-  this.getConso();
+    this.getConso();
   }
 
   // Get the data from service
@@ -61,7 +64,6 @@ export class HomePage implements OnInit {
       if (this.radioValue == undefined)
       this.radioValue = "Month"
      
-      console.log("getcos",this.radioValue)
       //Group data in month
       const groups = this.TheConso.reduce((groups, donne) => {
       var filter; 
@@ -104,4 +106,10 @@ export class HomePage implements OnInit {
       this.getConso();
     });
   }
+
+ngOnDestroy(){
+  this.ngUnsubscribe.next();
+  this.ngUnsubscribe.complete();
+}
+
 }
