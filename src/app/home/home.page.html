@@ -10,23 +10,23 @@
   </ion-refresher>
 
   <ion-row>
-    <ion-col>
+    <ion-col size="4">
       <ion-item>
         <ion-button [routerLink]="['/detail']">Add Food</ion-button>
       </ion-item>
     </ion-col>
-    <ion-col>
+    <ion-col size="8">
       <ion-radio-group value="Month" (ionChange)="selectedCategory()" [(ngModel)]="radioValue">
         <ion-row>
-          <ion-col>
+          <ion-col size="6" >
             <ion-item>
-              <ion-label>Month</ion-label>
+              <ion-label class="my-label">Month</ion-label>
               <ion-radio value="Month"></ion-radio>
             </ion-item>
           </ion-col>
-          <ion-col>
+          <ion-col size="6">
             <ion-item>
-              <ion-label>Pet</ion-label>
+              <ion-label class="my-label">Pet</ion-label>
               <ion-radio value="Pet"></ion-radio>
             </ion-item>
           </ion-col>
