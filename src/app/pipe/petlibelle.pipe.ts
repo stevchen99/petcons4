@@ -7,23 +7,23 @@ export class PetlibellePipe implements PipeTransform {
 
   transform(value: number): string {
     var res : string
-   /*  switch (value){
+    switch (value){
       case 1 : {
         res = value+"Hirukami Murakmi"
-        break;
-      }
+       
+      } break;
       case 2 : {
         res = value+"Josephine"
-        break;
-      }
+        
+      } break;
       default: {
         res = value+"Mikey n Blaky"
-        break;
-      }
-    } */
-    if (value == 1) { res = "Hirukami Murakmi"}
+        
+      } break;
+    }
+   /*  if (value == 1) { res = "Hirukami Murakmi"}
     else if (value == 2) { res = "Josephine"}
-    else { res = "Mikey n Blaky"}
+    else { res = "Mikey n Blaky"} */
     return res;
   }
 
