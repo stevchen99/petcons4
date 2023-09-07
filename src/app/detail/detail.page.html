@@ -8,7 +8,7 @@
   <ion-list>
     <ion-item>
       <ion-label>Who</ion-label>
-      <ion-select interface="popover" placeholder="Select Pet"  [(ngModel)]="LeConso.Pet.pet_id"  >
+      <ion-select placeholder="Select Pet"  [(ngModel)]="LeConso.Pet.pet_id"  >
         <ion-select-option *ngFor="let Pet of ThePet" [value]="Pet.pet_id" >{{ Pet.pet_label }}</ion-select-option>
       </ion-select>
     </ion-item>
